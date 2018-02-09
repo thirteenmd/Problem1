@@ -18,9 +18,14 @@ import static java.nio.file.FileVisitResult.*;
 import static java.nio.file.FileVisitOption.*;
 import java.util.*;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
+import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 public class ReadXML {
@@ -93,7 +98,7 @@ public class ReadXML {
     }
 
     public static void main(String[] args)
-            throws IOException {
+            throws IOException, XmlPullParserException {
 
         Path startingDir = Paths.get("C:\\Users\\admin\\Documents\\maven");
         String pattern = "*.{xml,XML}";
@@ -103,10 +108,20 @@ public class ReadXML {
         finder.done();
 
         ArrayList<Path> paths = finder.returnPaths();
-        for(Path path: paths){
-
+        try{
+            MavenXpp3Reader reader = new MavenXpp3Reader();
+            for(Path path: paths){
+                Model model = reader.read(new FileReader(path.toString()));
+                System.out.println("Information from " + path.toString());
+                System.out.println(model.getId());
+                System.out.println(model.getGroupId());
+                System.out.println(model.getArtifactId());
+                System.out.println(model.getVersion());
+                System.out.println(" ");
+                System.out.println(" ");
+            }
+        }catch (XmlPullParserException e){
+            System.err.print(e.toString());
         }
-
-
     }
 }
