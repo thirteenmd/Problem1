@@ -50,7 +50,7 @@ public class ReadXML {
             if (name != null && matcher.matches(name)) {
                 numMatches++;
                 System.out.println(file);
-                xmlFiles.add(name);
+                xmlFiles.add(file);
             }
         }
 
