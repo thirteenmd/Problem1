@@ -23,7 +23,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 
-public class Find {
+public class ReadXML {
 
     public static class Finder
             extends SimpleFileVisitor<Path> {
