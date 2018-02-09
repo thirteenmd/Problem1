@@ -1,12 +1,30 @@
-import java.io.File;
-import java.io.IOException;
+/**
+ * Sample code that finds files that match the specified glob pattern.
+ * For more information on what constitutes a glob pattern, see
+ * https://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob
+ *
+ * The file or directories that match the pattern are printed to
+ * standard out.  The number of matches is also printed.
+ *
+ * When executing this application, you must put the glob pattern
+ * in quotes, so the shell will not expand any wild cards:
+ *              java Find . -name "*.java"
+ */
+
+import java.io.*;
 import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
+import java.nio.file.attribute.*;
+import static java.nio.file.FileVisitResult.*;
+import static java.nio.file.FileVisitOption.*;
+import java.util.*;
 
-import static java.nio.file.FileVisitResult.CONTINUE;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
-public class ReadXML {
+
+public class Find {
+
     public static class Finder
             extends SimpleFileVisitor<Path> {
 
@@ -36,6 +54,10 @@ public class ReadXML {
         void done() {
             System.out.println("Matched: "
                     + numMatches);
+        }
+
+        ArrayList returnPaths(){
+            return xmlFiles;
         }
 
         // Invoke the pattern matching
@@ -73,14 +95,18 @@ public class ReadXML {
     public static void main(String[] args)
             throws IOException {
 
-//        if (args.length < 3 || !args[1].equals("-name"))
-//            usage();
-
-        Path startingDir = Paths.get("C:\\Users\\admin\\Documents\\CopyCharacters");
+        Path startingDir = Paths.get("C:\\Users\\admin\\Documents\\maven");
         String pattern = "*.{xml,XML}";
 
         Finder finder = new Finder(pattern);
         Files.walkFileTree(startingDir, finder);
         finder.done();
+
+        ArrayList<Path> paths = finder.returnPaths();
+        for(Path path: paths){
+
+        }
+
+
     }
 }
