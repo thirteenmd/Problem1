@@ -1,0 +1,13 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.doxbit.training</groupId>
+  <artifactId>problem1</artifactId>
+  <version>1</version>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-model</artifactId>
+      <version>3.5.2</version>
+    </dependency>
+  </dependencies>
+</project>
