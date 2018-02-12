@@ -1,16 +1,3 @@
-/**
- * Sample code that finds files that match the specified glob pattern.
- * For more information on what constitutes a glob pattern, see
- * https://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob
- *
- * The file or directories that match the pattern are printed to
- * standard out.  The number of matches is also printed.
- *
- * When executing this application, you must put the glob pattern
- * in quotes, so the shell will not expand any wild cards:
- *              java Find . -name "*.java"
- */
-
 import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.*;
@@ -108,11 +95,12 @@ public class ReadXML {
         finder.done();
 
         ArrayList<Path> paths = finder.returnPaths();
+
         try{
             MavenXpp3Reader reader = new MavenXpp3Reader();
             for(Path path: paths){
-                Model model = reader.read(new FileReader(path.toString()));
                 System.out.println("Information from " + path.toString());
+                Model model = reader.read(new FileReader(path.toString()));
                 System.out.println(model.getId());
                 System.out.println(model.getGroupId());
                 System.out.println(model.getArtifactId());
