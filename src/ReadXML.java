@@ -20,7 +20,7 @@ public class ReadXML {
     public static class Finder
             extends SimpleFileVisitor<Path> {
 
-        public ArrayList<Path> xmlFiles = new ArrayList<Path>();
+        public List<Path> xmlFiles = new ArrayList<Path>();
 
         private final PathMatcher matcher;
         private int numMatches = 0;
@@ -48,7 +48,7 @@ public class ReadXML {
                     + numMatches);
         }
 
-        ArrayList returnPaths(){
+        List returnPaths(){
             return xmlFiles;
         }
 
@@ -61,14 +61,14 @@ public class ReadXML {
             return CONTINUE;
         }
 
-        // Invoke the pattern matching
-        // method on each directory.
-        @Override
-        public FileVisitResult preVisitDirectory(Path dir,
-                                                 BasicFileAttributes attrs) {
-            find(dir);
-            return CONTINUE;
-        }
+//        // Invoke the pattern matching
+//        // method on each directory.
+//        @Override
+//        public FileVisitResult preVisitDirectory(Path dir,
+//                                                 BasicFileAttributes attrs) {
+//            find(dir);
+//            return CONTINUE;
+//        }
 
         @Override
         public FileVisitResult visitFileFailed(Path file,
@@ -88,13 +88,13 @@ public class ReadXML {
             throws IOException, XmlPullParserException {
 
         Path startingDir = Paths.get("C:\\Users\\admin\\Documents\\maven");
-        String pattern = "*.{xml,XML}";
+        String pattern = "pom.{xml,XML}";
 
         Finder finder = new Finder(pattern);
         Files.walkFileTree(startingDir, finder);
         finder.done();
 
-        ArrayList<Path> paths = finder.returnPaths();
+        List<Path> paths = finder.returnPaths();
 
         try{
             MavenXpp3Reader reader = new MavenXpp3Reader();
